@@ -1,10 +1,12 @@
 "use client";
 
 import { useEffect, useState, useRef, useCallback } from "react";
+import Image from "next/image";
 
 /* ─── Constants ─── */
-const WA = "8801630431664";
+const WA = "61466449762"; // User provided number
 const EMAIL = "info@ugstravels.com";
+
 const wa = (msg: string) => `https://wa.me/${WA}?text=${encodeURIComponent(msg)}`;
 
 /* ─── Destinations with Unsplash photos ─── */
@@ -68,7 +70,10 @@ function useReveal() {
 
 /* ─── Page ─── */
 export default function Home() {
+  /* ─── State ─── */
   const [scrolled, setScrolled] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
+  const [activeModal, setActiveModal] = useState<string | null>(null);
   const wrapper = useReveal();
 
   useEffect(() => {
@@ -87,13 +92,38 @@ export default function Home() {
       <nav className={`navbar ${scrolled ? "scrolled" : ""}`}>
         <div className="navbar__inner">
           <a href="#" className="navbar__logo"><img src="/logo.png" alt="UGS Travels" /></a>
+          <button className={`hamburger ${menuOpen ? "open" : ""}`} onClick={() => setMenuOpen(!menuOpen)} aria-label="Menu">
+            <span /><span /><span />
+          </button>
         </div>
       </nav>
+
+      {/* ── SIDEBAR ── */}
+      <div className={`sidebar-backdrop ${menuOpen ? "visible" : ""}`} onClick={() => setMenuOpen(false)} />
+      <aside className={`sidebar ${menuOpen ? "open" : ""}`}>
+        <div className="sidebar__header">
+          <img src="/logo.png" alt="UGS Travels" className="sidebar__logo" />
+          <button className="sidebar__close" onClick={() => setMenuOpen(false)} aria-label="Close menu">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M18 6 6 18" /><path d="m6 6 12 12" /></svg>
+          </button>
+        </div>
+        <nav className="sidebar__nav">
+          <a onClick={() => { to("destinations"); setMenuOpen(false); }}>Destinations</a>
+          <a onClick={() => { to("services"); setMenuOpen(false); }}>Services</a>
+          <a onClick={() => { to("about"); setMenuOpen(false); }}>About Us</a>
+          <a onClick={() => { to("contact"); setMenuOpen(false); }}>Contact</a>
+        </nav>
+        <div className="sidebar__cta">
+          <a className="btn btn--primary" href={wa("Hi, I want to plan a trip. Can you help?")} target="_blank" rel="noopener noreferrer">
+            {I.whatsapp} Chat on WhatsApp
+          </a>
+        </div>
+      </aside>
 
       {/* ── HERO with video bg ── */}
       <section className="hero">
         <div className="hero__video-wrap">
-          <video autoPlay muted loop playsInline poster="https://images.unsplash.com/photo-1436491865332-7a61a109db56?auto=format&fit=crop&w=1920&q=80">
+          <video autoPlay muted loop playsInline preload="auto" poster="https://images.unsplash.com/photo-1436491865332-7a61a109db56?auto=format&fit=crop&w=1920&q=80">
             <source src="/hero-video.mp4" type="video/mp4" />
           </video>
         </div>
@@ -134,10 +164,25 @@ export default function Home() {
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                <div className="dest-card__img"><img src={d.img} alt={d.name} loading="lazy" /></div>
+                <div className="dest-card__img">
+                  <Image
+                    src={d.img}
+                    alt={d.name}
+                    fill
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                    style={{ objectFit: "cover" }}
+                  />
+                </div>
                 <div className="dest-card__overlay" />
                 <div className="dest-card__info">
-                  <img className="dest-card__flag" src={`https://flagcdn.com/w80/${d.code}.png`} alt="" loading="lazy" />
+                  <Image
+                    className="dest-card__flag"
+                    src={`https://flagcdn.com/w80/${d.code}.png`}
+                    alt={d.name}
+                    width={28}
+                    height={20}
+                    style={{ objectFit: "cover" }}
+                  />
                   <div className="dest-card__name">{d.name}</div>
                   <div className="dest-card__tagline">{d.tag}</div>
                 </div>
@@ -173,7 +218,13 @@ export default function Home() {
         <div className="container">
           <div className="about__inner">
             <div className="about__image reveal">
-              <img src="https://images.pexels.com/photos/3184418/pexels-photo-3184418.jpeg?auto=compress&cs=tinysrgb&w=800" alt="UGS Travels team" />
+              <Image
+                src="https://images.pexels.com/photos/3184418/pexels-photo-3184418.jpeg?auto=compress&cs=tinysrgb&w=800"
+                alt="UGS Travels team"
+                fill
+                sizes="(max-width: 768px) 100vw, 50vw"
+                style={{ objectFit: "cover" }}
+              />
               <div className="about__image-accent" />
             </div>
             <div className="about__content reveal reveal-d2">
@@ -186,8 +237,8 @@ export default function Home() {
               </p>
               <div className="about__contact">
                 <a className="about__contact-item" href={`mailto:${EMAIL}`}>{I.mail}<span>{EMAIL}</span></a>
-                <a className="about__contact-item" href={wa("Hi, I'd like to get in touch.")} target="_blank" rel="noopener noreferrer">{I.whatsapp}<span>+880 1630 431664</span></a>
-                <a className="about__contact-item" href="tel:+8801630431664">{I.phone}<span>+880 1630 431664</span></a>
+                <a className="about__contact-item" href={wa("Hi, I'd like to get in touch.")} target="_blank" rel="noopener noreferrer">{I.whatsapp}<span>+61 466 449 762</span></a>
+                <a className="about__contact-item" href="tel:+61466449762">{I.phone}<span>+61 466 449 762</span></a>
               </div>
             </div>
           </div>
@@ -214,11 +265,11 @@ export default function Home() {
               <p>Your trusted partner for international travel.</p>
             </div>
             <div className="footer__col">
-              <h4>Navigate</h4>
+              <h4>Legal</h4>
               <ul>
-                <li><a onClick={() => to("destinations")}>Destinations</a></li>
-                <li><a onClick={() => to("services")}>Services</a></li>
-                <li><a onClick={() => to("about")}>About Us</a></li>
+                <li><a onClick={() => setActiveModal("privacy")}>Privacy Policy</a></li>
+                <li><a onClick={() => setActiveModal("terms")}>Terms of Use</a></li>
+                <li><a onClick={() => setActiveModal("faq")}>FAQ</a></li>
               </ul>
             </div>
             <div className="footer__col">
@@ -230,22 +281,18 @@ export default function Home() {
                 <li><a href={wa("Interested in Australia.")} target="_blank" rel="noopener noreferrer">Australia</a></li>
               </ul>
             </div>
-            <div className="footer__col">
+            <div className="footer__col" id="contact">
               <h4>Contact</h4>
               <ul>
                 <li><a href={`mailto:${EMAIL}`}>{EMAIL}</a></li>
-                <li><a href="tel:+8801630431664">+880 1630 431664</a></li>
+                <li><a href="tel:+61466449762">+61 466 449 762</a></li>
                 <li><a href={wa("Hello!")} target="_blank" rel="noopener noreferrer">WhatsApp</a></li>
               </ul>
             </div>
           </div>
           <div className="footer__bottom">
-            <p>&copy; {new Date().getFullYear()} UGS Travels. All rights reserved.</p>
-            <div className="footer__socials">
-              <a href="#" aria-label="Facebook">{I.facebook}</a>
-              <a href="#" aria-label="Instagram">{I.instagram}</a>
-              <a href={wa("Hi!")} target="_blank" rel="noopener noreferrer" aria-label="WhatsApp">{I.whatsapp}</a>
-            </div>
+            <p>&copy; 2026 UGS Travels. All rights reserved.</p>
+
           </div>
         </div>
       </footer>
@@ -254,6 +301,71 @@ export default function Home() {
       <a className="whatsapp-float" href={wa("Hi, I'd like to inquire about travel services.")} target="_blank" rel="noopener noreferrer" aria-label="Chat on WhatsApp">
         {I.whatsapp}
       </a>
+      {/* ── LEGAL MODAL ── */}
+      <LegalModal type={activeModal} onClose={() => setActiveModal(null)} />
+    </div>
+  );
+}
+
+function LegalModal({ type, onClose }: { type: string | null; onClose: () => void }) {
+  if (!type) return null;
+
+  const content: Record<string, { title: string; body: React.ReactNode }> = {
+    privacy: {
+      title: "Privacy Policy",
+      body: (
+        <>
+          <p><strong>Last Updated: February 2026</strong></p>
+          <p>At UGS Travels, we respect your privacy and are committed to protecting your personal data. This privacy policy will inform you as to how we look after your personal data when you visit our website.</p>
+          <h4>1. Information We Collect</h4>
+          <p>We may collect, use, store and transfer different kinds of personal data about you which we have grouped together follows: Identity Data, Contact Data, and Technical Data.</p>
+          <h4>2. How We Use Your Data</h4>
+          <p>We will only use your personal data when the law allows us to. Most commonly, we will use your personal data in the following circumstances: Where we need to perform the contract we are about to enter into or have entered into with you.</p>
+        </>
+      ),
+    },
+    terms: {
+      title: "Terms of Use",
+      body: (
+        <>
+          <p><strong>Welcome to UGS Travels</strong></p>
+          <p>These terms and conditions outline the rules and regulations for the use of UGS Travels' Website.</p>
+          <h4>1. Acceptance of Terms</h4>
+          <p>By accessing this website we assume you accept these terms and conditions. Do not continue to use UGS Travels if you do not agree to take all of the terms and conditions stated on this page.</p>
+          <h4>2. License</h4>
+          <p>Unless otherwise stated, UGS Travels and/or its licensors own the intellectual property rights for all material on UGS Travels.</p>
+        </>
+      ),
+    },
+    faq: {
+      title: "Frequently Asked Questions",
+      body: (
+        <>
+          <h4>How do I book a trip?</h4>
+          <p>Simply click on any "Chat on WhatsApp" button to connect with our travel experts. We will handle everything from there!</p>
+          <h4>Do you provide visa assistance?</h4>
+          <p>Yes, we provide comprehensive visa assistance for all major destinations including US, UK, Canada, and Australia.</p>
+          <h4>What payment methods do you accept?</h4>
+          <p>We accept bank transfers, credit cards, and cash payments at our office.</p>
+        </>
+      ),
+    },
+  };
+
+  const data = content[type];
+  if (!data) return null;
+
+  return (
+    <div className="modal-backdrop visible" onClick={onClose}>
+      <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+        <div className="modal-header">
+          <h3>{data.title}</h3>
+          <button onClick={onClose} className="modal-close">&times;</button>
+        </div>
+        <div className="modal-body">
+          {data.body}
+        </div>
+      </div>
     </div>
   );
 }
