@@ -1043,5 +1043,28 @@ h4 {
 
 .sidebar__cta .btn {
   width: 100%;
-  justify-content: center;
+}
+
+/* ============================================
+   RESPONSIVE
+   ============================================ */
+@media (max-width: 768px) {
+  .hero__content {
+    text-align: center;
+    margin: 0 auto;
+  }
+
+  .hero__title {
+    font-size: clamp(2.5rem, 8vw, 4.5rem);
+    line-height: 1.1;
+  }
+
+  .hero__sub {
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .hero__actions {
+    justify-content: center;
+  }
 }

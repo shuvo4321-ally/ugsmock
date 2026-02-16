@@ -121,9 +121,20 @@ export default function Home() {
       </aside>
 
       {/* ── HERO with video bg ── */}
-      <section className="hero">
+      <section className="hero" id="home" style={{ backgroundColor: "#000" }}>
         <div className="hero__video-wrap">
-          <video autoPlay muted loop playsInline preload="auto" poster="https://images.unsplash.com/photo-1436491865332-7a61a109db56?auto=format&fit=crop&w=1920&q=80">
+          {/* Add a 'poster.jpg' to public folder for instant preview */}
+          <video
+            autoPlay
+            muted
+            loop
+            playsInline
+            preload="auto"
+            poster="/poster.jpg"
+            style={{ width: "100%", height: "100%", objectFit: "cover", opacity: 0.6 }}
+            // @ts-ignore
+            fetchPriority="high"
+          >
             <source src="/hero-video.mp4" type="video/mp4" />
           </video>
         </div>
@@ -169,7 +180,7 @@ export default function Home() {
                     src={d.img}
                     alt={d.name}
                     fill
-                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 33vw, 25vw"
                     style={{ objectFit: "cover" }}
                   />
                 </div>
