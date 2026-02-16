@@ -1069,12 +1069,14 @@ h4 {
   }
 
   .navbar {
-    padding: 0 24px;
-    /* Reduce padding to push content closer to edges */
+    padding-left: 24px;
+    padding-right: 0;
+    /* Remove right space completely */
   }
 
   .hamburger {
     margin-left: auto;
-    /* Force push to right */
+    margin-right: -10px;
+    /* Pull it slightly to the edge if needed, or 0 */
   }
 }
