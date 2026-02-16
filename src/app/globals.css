@@ -1067,4 +1067,14 @@ h4 {
   .hero__actions {
     justify-content: center;
   }
+
+  .navbar {
+    padding: 0 24px;
+    /* Reduce padding to push content closer to edges */
+  }
+
+  .hamburger {
+    margin-left: auto;
+    /* Force push to right */
+  }
 }
