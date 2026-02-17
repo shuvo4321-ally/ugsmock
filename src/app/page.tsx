@@ -117,13 +117,13 @@ export default function Home() {
         </nav>
         <div className="sidebar__cta">
           <div className="sidebar__icons">
-            <a className="icon-btn whatsapp" href={wa("Hi, I want to plan a trip.")} target="_blank" rel="noopener noreferrer" aria-label="WhatsApp">
+            <a className="icon-btn whatsapp" href={wa("Hi, I want to plan a trip.")} target="_blank" rel="noopener noreferrer" aria-label="WhatsApp" onClick={() => setMenuOpen(false)}>
               {I.whatsapp}
             </a>
-            <a className="icon-btn mail" href={`mailto:${EMAIL}`} aria-label="Email">
+            <a className="icon-btn mail" href={`mailto:${EMAIL}`} aria-label="Email" onClick={() => setMenuOpen(false)}>
               {I.mail}
             </a>
-            <a className="icon-btn phone" href="tel:+61466449762" aria-label="Call">
+            <a className="icon-btn phone" href="tel:+61466449762" aria-label="Call" onClick={() => setMenuOpen(false)}>
               {I.phone}
             </a>
           </div>

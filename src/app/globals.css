@@ -143,6 +143,8 @@ h4 {
 .hero {
   position: relative;
   min-height: 100vh;
+  min-height: 100dvh;
+  /* Better mobile support */
   display: flex;
   align-items: center;
   overflow: hidden;
