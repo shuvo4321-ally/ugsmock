@@ -95,6 +95,8 @@ export default function Home() {
           <button className={`hamburger ${menuOpen ? "open" : ""}`} onClick={() => setMenuOpen(!menuOpen)} aria-label="Menu">
             <span /><span /><span />
           </button>
+
+
         </div>
       </nav>
 
@@ -114,9 +116,17 @@ export default function Home() {
           <a onClick={() => { to("contact"); setMenuOpen(false); }}>Contact</a>
         </nav>
         <div className="sidebar__cta">
-          <a className="btn btn--primary" href={wa("Hi, I want to plan a trip. Can you help?")} target="_blank" rel="noopener noreferrer">
-            {I.whatsapp} Chat on WhatsApp
-          </a>
+          <div className="sidebar__icons">
+            <a className="icon-btn whatsapp" href={wa("Hi, I want to plan a trip.")} target="_blank" rel="noopener noreferrer" aria-label="WhatsApp">
+              {I.whatsapp}
+            </a>
+            <a className="icon-btn mail" href={`mailto:${EMAIL}`} aria-label="Email">
+              {I.mail}
+            </a>
+            <a className="icon-btn phone" href="tel:+61466449762" aria-label="Call">
+              {I.phone}
+            </a>
+          </div>
         </div>
       </aside>
 
