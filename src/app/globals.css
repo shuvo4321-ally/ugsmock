@@ -1126,6 +1126,27 @@ h4 {
    RESPONSIVE
    ============================================ */
 @media (max-width: 768px) {
+  .sidebar__nav {
+    margin-top: 40px;
+    /* Lift up, but not too tight */
+    margin-bottom: 40px;
+    gap: 20px;
+    /* Comfortable gap */
+  }
+
+  .sidebar__cta {
+    margin-top: 0;
+  }
+
+  .sidebar__icons {
+    margin-top: 60px;
+    /* Lowered from 20px */
+  }
+
+  /* Logo size restored to default (180px) */
+}
+
+@media (max-width: 768px) {
   .hero__content {
     text-align: center;
     margin: 0 auto;
