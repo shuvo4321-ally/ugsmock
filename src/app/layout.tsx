@@ -6,9 +6,28 @@ export const metadata: Metadata = {
   description:
     "UGS Travels is your trusted partner for international travel. Explore top destinations worldwide with expert visa assistance, flight booking, hotel reservations and personalized tour packages. Contact us on WhatsApp for instant support.",
   keywords: "travel agency, international travel, visa assistance, flight booking, hotel reservation, tour packages, UGS Travels",
+  icons: {
+    icon: [
+      { url: "/favicon-48.png", sizes: "48x48", type: "image/png" },
+      { url: "/icon-192.png", sizes: "192x192", type: "image/png" },
+      { url: "/icon-512.png", sizes: "512x512", type: "image/png" },
+    ],
+    apple: "/apple-touch-icon.png",
+  },
+  manifest: "/manifest.json",
   openGraph: {
     title: "UGS Travels — Travel with Confidence",
     description: "Your trusted partner for international travel. Explore destinations and connect on WhatsApp.",
+    url: "https://www.ugstravels.com",
+    siteName: "UGS Travels",
+    images: [
+      {
+        url: "/logo.png",
+        width: 1080,
+        height: 1080,
+        alt: "UGS Travels Logo",
+      },
+    ],
     type: "website",
   },
 };
